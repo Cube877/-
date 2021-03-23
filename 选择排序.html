@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择排序</title>
+</head>
+<body>
+    <script>
+        let arr = [5, 3, 8, 6, 4];
+        // let arr = [124,12,942,41,1242,4200];
+        // 从小到大排序
+        // for(let i = 0; i < arr.length-1; i++) {
+        //     for(let j = i+1; j < arr.length; j++) {
+        //         if(arr[i] > arr[j]) {
+        //             let t = arr[i];
+        //             arr[i] = arr[j];
+        //             arr[j] = t;
+        //         }
+        //     }
+        // }
+        for(let i = 0; i < arr.length-1; i++) {
+            let minIndex = i;
+            for(let j = i+1; j < arr.length; j++) {//找出剩余元素中最小元素的下标
+                if(arr[minIndex] > arr[j]) {
+                    minIndex = j;
+                }
+            }
+            if(minIndex != i) {
+                let t = arr[i];
+                arr[i] = arr[minIndex];
+                arr[minIndex] = t;
+            }
+        }
+        console.log(arr);
+    </script>
+</body>
+</html>

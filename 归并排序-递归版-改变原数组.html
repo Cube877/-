@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test-归并排序-递归版-改变原数组</title>
+</head>
+<body>
+    <script>
+        // let arr = [5, 3, 8, 6, 4];
+        let arr = [124,12,942,41,1242,4200];
+        // 以从小到大排序为例
+        function mSort(arr, left, right) {
+            if(left >= right) {
+                return;
+            }
+            let mid = Math.floor((left+right)/2);
+            mSort(arr,left,mid);
+            mSort(arr,mid+1,right);
+            merge(arr,left,mid,right);
+        }
+        // merge:将有序的序列arr[left,mid]和arr[mid+1,right]合并成有序的序列arr[left,right]
+        function merge(arr, left, mid, right) {
+            // 临时存放有序序列的数组
+            let temp = [];
+            // k为临时数组的指针
+            let k = 0;
+            // i为左指针
+            let i = left;
+            // j为右指针
+            let j = mid+1;
+            while(i<=mid && j<=right) {
+                // 两个指针对于的元素中,较小的一方加入temp数组中,且指针向前移一位
+                if(arr[i]<=arr[j]) {
+                    temp[k++]=arr[i++];
+                }
+                else {
+                    temp[k++]=arr[j++];
+                }
+            }
+            // 将没比较完的元素全部加入temp数组中(剩下的元素一定都是比较大的)
+            if(i<=mid) {
+                temp[k++]=arr[i++];
+            }
+            if(j<=right) {
+                temp[k++]=arr[j++];
+            }
+            // 将temp中的有序数组拷贝到原数组中
+            for(let p = 0; p<temp.length; p++) {
+                arr[left+p]=temp[p];
+            }
+        }
+        mSort(arr,0,arr.length-1);
+        console.log(arr);
+    </script>
+</body>
+</html>

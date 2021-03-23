@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插入排序</title>
+</head>
+<body>
+    <script>
+        let arr = [5, 3, 8, 6, 4];
+        // let arr = [124,12,942,41,1242,4200];
+
+        // 从小到大排序
+/*      以扑克牌的理牌思路为比喻，当拿到第一张牌时，无需排序，它必然是有序；之后每拿到一张牌，都要与前一张牌进行比较，
+        如果新拿到的牌比较大，那么无需变更牌的位置，反之，将新牌与手中已有的牌逐一比较，找到正确的位置插入。 */
+        // for(let i = 1; i < arr.length; i++) {
+        //     if(arr[i] < arr[i-1]) {//新牌的元素较小，需要确定其插入的位置
+        //         let t = arr[i];
+        //         let j;
+        //         for(j = i-1; arr[j] > t; j--) {//旧牌中比新牌大的，位置向后移动一位，为新牌的插入腾出位置
+        //             arr[j+1] = arr[j];
+        //         }
+        //         arr[j+1] = t;//找到新牌应当插入的位置将其插入
+        //     }
+        // }
+        for(let i = 1; i<arr.length; i++) {
+            // 记录新拿到的牌的值
+            let t = arr[i];
+            let j;
+            // 如果前面的牌大于新拿到的牌，则向后移动一位，为新的牌腾出位置
+            for(j = i; j > 0 && arr[j-1] > t; j--) {
+                arr[j] = arr[j-1];
+            }
+            // 将新的牌放入正确的位置
+            arr[j] = t;
+        }
+        console.log(arr);
+    </script>
+</body>
+</html>

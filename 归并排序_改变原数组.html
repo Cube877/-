@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归并排序-改变原数组</title>
+</head>
+<body>
+    <script>
+        let mergeArr = [10,30,50,70,90,20,40,60,80];
+        let arr = [21,25,49,25,93,62,72,8,37,16,54];
+        function merge(arr, left, mid, right) {
+            let temp = [];//临时的数组，存放排序完的序列
+            let i = left, j = mid + 1, k = 0;//i左指针，j右指针
+            while (i <= mid && j <= right) {
+                if (arr[i] < arr[j]) {
+                    temp[k++] = arr[i++];
+                }
+                else {
+                    temp[k++] = arr[j++];
+                }
+            }
+            while (i <= mid) {
+                temp[k++] = arr[i++];
+            }
+            while (j <= right) {
+                temp[k++] = arr[j++];
+            }
+            for(let i = 0; i < temp.length; i++) {
+                arr[left + i] = temp[i];
+            }
+        }
+        function mSort(arr, left, right) {
+            if(left >= right) {
+                return;
+            }
+            let mid = Math.floor((left+right)/2);
+            mSort(arr, left, mid);
+            mSort(arr, mid+1, right);
+            merge(arr, left, mid, right);
+
+        }
+        // merge(mergeArr,0, 4, mergeArr.length-1);
+        mSort(arr, 0, arr.length-1);
+        console.log(arr);
+    </script>
+</body>
+</html>

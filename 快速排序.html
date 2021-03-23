@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快速排序</title>
+</head>
+<body>
+    <script>
+        let arr = [124,12,942,41,1242,4200];
+        // let arr = [5, 3, 8, 6, 4];
+        // 从小到大排序为例
+        // QSort:对数组arr[low]到arr[high]进行从小到大排序
+        function QSort(arr, low, high) {
+            if(low >= high) {
+                return;
+            }
+            // 获取枢轴的位置
+            let pivot = Partition(arr, low, high);
+            QSort(arr, low, pivot-1);
+            QSort(arr, pivot+1, high);
+        }
+        // Partition:对数组arr[low]到arr[high]的元素进行位置交换，最后的结果为枢轴左边的元素均小于枢轴，右边的元素均大于枢轴
+        function Partition(arr, low, high) {
+            // 选取一个枢轴。之后，比枢轴小的值将被交换到枢轴的左边，比枢轴大的值将在枢轴的右边
+            let pivotkey = arr[low];
+            while(low < high) {
+                while(low<high && arr[high]>=pivotkey) {
+                    // high为右指针，不断向左移动，直到找到小于枢轴的元素
+                    high--;
+                }
+                // 当前high所在的位置的元素小于枢轴
+                // 交换元素，这时low所在位置的元素小于枢轴
+                swap(arr,low,high);
+                while(low<high && arr[low]<=pivotkey) {
+                    // low为左指针，不断向右移动，直到找到大于枢轴的元素
+                    low++;
+                }
+                // 当前low所在的位置的元素大于枢轴
+                // 交换元素，这时high所在位置的元素小于枢轴
+                swap(arr,low,high);
+            }
+            // 不断重复以上操作,直到左右指针相遇,此时指针指向枢轴,排序完成
+            return low;
+        }
+
+        // swap:交换数组arr中下标为n1和n2元素的位置
+        function swap(arr,n1,n2) {
+            if(n1>=0 && n2>=0 && n1!=n2) {
+                let t = arr[n1];
+                arr[n1] = arr[n2];
+                arr[n2] = t;
+            }
+        }
+        QSort(arr, 0, arr.length-1);
+        console.log(arr);
+    </script>
+</body>
+</html>

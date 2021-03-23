@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归并排序-不改变原数组</title>
+</head>
+
+<body>
+    <script>
+        let mergeArr = [10,30,50,70,90,20,40,60,80];
+        let arr = [21, 25, 49, 25, 93, 62, 72, 8, 37, 16, 54];
+        let sorted= [];
+        //将有序的SR[left...mid]和有序的SR[mid...right]归并为TR[left...right]
+        // function Merge(rr, TR, left, mid, right) {
+        //     let j, k, l;
+        //     for(j=mid+1, k=left; left<=mid&&j<=right; k++) {
+        //         if(SR[left]<SR[j]) {
+        //             TR[k] = SR[left++]; 
+        //         }
+        //         else {
+        //             TR[k] = SR[j++];
+        //         }
+        //     }
+        //     if(left<=mid) {
+        //         for(l=0;l<=mid-left;l++) {
+        //             TR[k+1]=SR[left+1];
+        //         }
+        //     }
+        //     if(j<=right) {
+        //         for(l=0;l<=right-j;l++) {
+        //             TR[k+1]=SR[j+1];
+        //         }
+        //     }
+        // }
+        //将有序的arr[left...mid]和有序的arr[mid...right]归并为sorted[left...right]
+        //双指针的思想
+        function merge(arr, sorted, left, mid, right) {
+            // let temp = [];//临时的数组，存放排序完的序列
+            let i = left, j = mid + 1, k = 0;//i左指针，j右指针
+            while (i <= mid && j <= right) {
+                if (arr[i] < arr[j]) {
+                    sorted[k++] = arr[i++];
+                }
+                else {
+                    sorted[k++] = arr[j++];
+                }
+            }
+            while (i <= mid) {
+                sorted[k++] = arr[i++];
+            }
+            while (j <= right) {
+                sorted[k++] = arr[j++];
+            }
+        }
+        //递归分治的思想
+        function mSort(arr, sorted, left, right) {
+            if(left==right) {
+                sorted[left] = arr[left];
+                return;
+            }
+            let t = [];
+            let mid = Math.floor((left+right)/2);
+            mSort(arr, t, left, mid);
+            mSort(arr, t, mid+1, right);
+            merge(t, sorted, left, mid, right);
+        }
+        //非递归的方法
+        // function mergePass(arr, sorted, n, length) {
+        //     let i, j;
+        //     for (i = 0; i <= n - 2 * length; i += 2 * length) {
+        //         merge(arr, sorted, i, i + length - 1, i + 2 * length - 1);
+        //     }
+        //     if (i + length < n) {
+        //         merge(arr, sorted, i, i + length - 1, n - 1);
+        //     }
+        //     else {
+        //         for (j = i; j < n; j++) {
+        //             sorted[j] = arr[j];
+        //         }
+        //     }
+        // }
+        // function mergeSort(arr) {
+        //     let length = 1;
+        //     let extra = [];
+        //     let n = arr.length;
+        //     while (length < n) {
+        //         mergePass(arr, extra, n, length);
+        //         length *= 2; 
+        //         mergePass(extra, arr, n, length);
+        //         length *= 2;
+        //     }
+
+        // }
+        // merge(mergeArr,sorted, 0,4,8);
+        mSort(arr, sorted, 0, arr.length-1);
+        // mergeSort(arr);
+        console.log(sorted);
+        // console.log(arr);
+        </script>
+</body>
+
+</html>
